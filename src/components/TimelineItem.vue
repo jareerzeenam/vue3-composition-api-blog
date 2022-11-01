@@ -11,5 +11,6 @@ defineProps<{
     <a>{{ post.title }}</a>
     <p>{{ post.description }}</p>
     <div>{{ post.createdAt.toFormat("d MMM") }}</div>
+    {{ post.author }}
   </a>
 </template>

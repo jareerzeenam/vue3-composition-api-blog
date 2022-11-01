@@ -2,7 +2,10 @@
 import { DateTime } from "luxon";
 import { ref, computed } from "vue";
 import { TimelinePost, today, thisWeek, thisMonth, thisYear } from "../posts";
+import { usePosts } from "../stores/posts";
 import TimelineItem from "./TimelineItem.vue";
+
+const postsStore = usePosts();
 
 // Read only const
 const periods = ["Today", "This Week", "This Month", "This Year"] as const;
@@ -22,6 +25,7 @@ const posts = computed<TimelinePost[]>(() => {
       return {
         ...post,
         createdAt: DateTime.fromISO(post.createdAt),
+        author: "Jareer Zeenam", // overwrite author name
       };
     })
     .filter((post) => {
@@ -41,6 +45,9 @@ const posts = computed<TimelinePost[]>(() => {
 </script>
 
 <template>
+  {{ postsStore.getState().foo }}
+  <button @click="postsStore.updateFoo('bar')">Update</button>
+
   <nav class="is-primary panel">
     {{ selectedPeriod }}
     <span class="panel-tabs">
