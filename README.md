@@ -38,3 +38,4 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 
 ## Packages
 - [Luxon: Wrapper for JavaScript dates and times](https://moment.github.io/luxon/#/)
+- [Pinia: Vue Store for state management](https://pinia.vuejs.org/)
