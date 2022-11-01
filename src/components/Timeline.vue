@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { DateTime } from "luxon";
+import { ref, computed } from "vue";
+import { Post, today, thisWeek, thisMonth, thisYear } from "../posts";
 
 // Read only const
 const periods = ["Today", "This Week", "This Month", "This Year"] as const;
@@ -12,6 +14,29 @@ const selectedPeriod = ref<Period>("Today");
 const selectPeriod = (period: Period) => {
   selectedPeriod.value = period;
 };
+
+const posts = computed(() => {
+  return [today, thisWeek, thisMonth, thisYear]
+    .map((post) => {
+      return {
+        ...post,
+        createdAt: DateTime.fromISO(post.createdAt),
+      };
+    })
+    .filter((post) => {
+      if (selectedPeriod.value === "Today") {
+        return post.createdAt >= DateTime.now().minus({ day: 1 });
+      }
+      if (selectedPeriod.value === "This Week") {
+        return post.createdAt >= DateTime.now().minus({ week: 1 });
+      }
+      if (selectedPeriod.value === "This Month") {
+        return post.createdAt >= DateTime.now().minus({ month: 1 });
+      }
+
+      return post;
+    });
+});
 </script>
 
 <template>
@@ -27,5 +52,11 @@ const selectPeriod = (period: Period) => {
         {{ period }}
       </a>
     </span>
+
+    <a v-for="post of posts" :key="post.id" class="panel-block">
+      <a>{{ post.title }}</a>
+      <p>{{ post.description }}</p>
+      <div>{{ post.createdAt.toFormat("d MMM") }}</div>
+    </a>
   </nav>
 </template>
