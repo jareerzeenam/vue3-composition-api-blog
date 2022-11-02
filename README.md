@@ -20,6 +20,14 @@ npm install
 npm run dev
 ```
 
+## Run Node Server 
+
+(if you get any error as - `Unknown file extension ".ts"`, try to remove `"type": "module",` from packages.json file and re-run the command )
+
+```
+npx ts-node src/server/index.ts
+```
+
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
