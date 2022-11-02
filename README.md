@@ -22,11 +22,13 @@ npm run dev
 
 ## Run Node Server 
 
-(if you get any error as - `Unknown file extension ".ts"`, try to remove `"type": "module",` from packages.json file and re-run the command )
+(if you get any error as - `Unknown file extension ".ts"`, try to remove `"type": "module",` from packages.json file and re-run the command ) or simply create a npm script in your packages.json file as ` "server": "ts-node src/server/index.ts"` and run `npm run server`
 
 ```
 npx ts-node src/server/index.ts
 ```
+
+
 
 ## Recommended IDE Setup
 

@@ -16,16 +16,16 @@ interface PostsState {
   selectedPeriod: Period;
 }
 
+// Delay 15000 MS
+function delay() {
+  return new Promise<void>((res) => setTimeout(res, 1500));
+}
+
 export const usePosts = defineStore('posts', {
   // Reactive
   state: (): PostsState => ({
-    ids: [today.id, thisWeek.id, thisMonth.id, thisYear.id],
-    all: new Map([
-      [today.id, today],
-      [thisWeek.id, thisWeek],
-      [thisMonth.id, thisMonth],
-      [thisYear.id, thisYear],
-    ]),
+    ids: [],
+    all: new Map(),
     selectedPeriod: 'Today',
   }),
 
@@ -33,6 +33,26 @@ export const usePosts = defineStore('posts', {
   actions: {
     setSelectedPeriod(period: Period) {
       this.selectedPeriod = period;
+    },
+
+    // Data fetching
+    async fetchPosts() {
+      // fetching data
+      const res = await window.fetch('http://localhost:5500/posts');
+      const data = (await res.json()) as Post[];
+      await delay();
+
+      // processing data
+      let ids: string[] = [];
+      let all = new Map<string, Post>();
+      for (const post of data) {
+        ids.push(post.id);
+        all.set(post.id, post);
+      }
+
+      // mutation and updating
+      this.ids = ids;
+      this.all = all;
     },
   },
 
