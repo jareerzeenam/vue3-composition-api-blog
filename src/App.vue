@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar.vue";
 
 <style>
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
-@import "highlight.js/styles/atom-one-dark.css";
+@import "highlight.js/styles/atom-one-dark.css"; /* Highlight.js Styles */
 
 ul {
   list-style: revert !important;

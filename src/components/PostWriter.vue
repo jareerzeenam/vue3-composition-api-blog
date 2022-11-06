@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, watchEffect } from "vue";
 import { TimelinePost } from "../posts";
+import { useRouter } from "vue-router";
 import { marked } from "marked";
 import highlightjs from "highlight.js";
 import debounce from "lodash/debounce";
@@ -16,12 +17,13 @@ const html = ref("");
 const contentEditable = ref<HTMLDListElement>();
 
 const posts = usePosts();
+const router = useRouter();
 
 function parseHtml(markdown: string) {
   marked.parse(
     markdown,
     {
-      gfm: true,
+      gfm: true, // GitHub Format
       breaks: true,
       highlight: (code) => {
         return highlightjs.highlightAuto(code).value;
@@ -34,17 +36,10 @@ function parseHtml(markdown: string) {
   );
 }
 
-// Watch Example 1
-// watchEffect(() => {
-//   marked.parse(content.value, (err, parseResult) => {
-//     // console.log(parseResult);
-//     html.value = parseResult;
-//   });
-// });
-
-// Watch Example 2
+// Watch changes for content on input and make appropriate changes
 watch(
   content,
+  // Debounce delays 250ms
   debounce((newContent) => {
     parseHtml(newContent);
   }, 250),
@@ -53,11 +48,12 @@ watch(
   }
 );
 
+// On load show the inserted value and watches for newly inserted values
 onMounted(() => {
   if (!contentEditable.value) {
     throw Error("Content Editable DOM node was not found");
   }
-
+  // Assign content value with the inner text
   contentEditable.value.innerText = content.value;
 });
 
@@ -65,17 +61,19 @@ function handleInput() {
   if (!contentEditable.value) {
     throw Error("Content Editable DOM node was not found");
   }
+  // Assign content value with the inner text
   content.value = contentEditable.value?.innerText;
 }
 
-function handleClick() {
+async function handleClick() {
   const newPost: TimelinePost = {
     ...props.post,
     title: title.value,
     markdown: content.value,
     html: html.value,
   };
-  posts.createPost(newPost);
+  await posts.createPost(newPost);
+  router.push("/"); // this is used to prevent page reload
 }
 </script>
 

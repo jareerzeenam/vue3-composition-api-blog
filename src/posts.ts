@@ -22,6 +22,8 @@ export const today: Post = {
   author: '54df56sd4f65sdf',
   categoryId: 'dsdfsdf85sd46f',
   createdAt: DateTime.now().toISO(),
+  markdown: '',
+  html: '',
 };
 
 export const thisWeek: Post = {
