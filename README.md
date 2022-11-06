@@ -63,3 +63,6 @@ npm run server
 - [Luxon: Wrapper for JavaScript dates and times](https://moment.github.io/luxon/#/)
 - [Pinia: Vue Store for state management](https://pinia.vuejs.org/)
 - [Marked: A markdown parser and compiler](https://marked.js.org/)
+- [Highlight.js: Syntax highlighting for the Web](https://highlightjs.org/)
+- [Lodash: Used for debounced function](https://lodash.com/docs/4.17.15#debounce)
+- [Body Parser: Node.js body parsing middleware.](https://www.npmjs.com/package/body-parser)
