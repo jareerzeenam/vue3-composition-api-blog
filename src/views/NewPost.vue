@@ -11,6 +11,7 @@ const post: TimelinePost = {
   author: "d5f4d5sf",
   categoryId: "sdssfdf",
   markdown: "## Title",
+  html: "<h2>Title</h2>",
 };
 </script>
 
