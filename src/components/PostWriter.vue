@@ -2,6 +2,7 @@
 import { ref, onMounted, watch, watchEffect } from "vue";
 import { TimelinePost } from "../posts";
 import { marked } from "marked";
+import highlightjs from "highlight.js";
 
 const props = defineProps<{
   post: TimelinePost;
@@ -24,10 +25,20 @@ const contentEditable = ref<HTMLDListElement>();
 watch(
   content,
   (newContent) => {
-    marked.parse(newContent, (err, parseResult) => {
-      // console.log(parseResult);
-      html.value = parseResult;
-    });
+    marked.parse(
+      newContent,
+      {
+        gfm: true,
+        breaks: true,
+        highlight: (code) => {
+          return highlightjs.highlightAuto(code).value;
+        },
+      },
+      (err, parseResult) => {
+        // console.log(parseResult);
+        html.value = parseResult;
+      }
+    );
   },
   {
     immediate: true,
@@ -63,10 +74,23 @@ function handleInput() {
 
   <div class="columns">
     <div class="column">
-      <div contenteditable ref="contentEditable" @input="handleInput" />
+      <div
+        contenteditable
+        ref="contentEditable"
+        class="contentEditable"
+        @input="handleInput"
+      />
     </div>
     <div class="column">
       <div v-html="html"></div>
     </div>
   </div>
 </template>
+
+<style>
+.contentEditable {
+  border: 1px solid #8080808a;
+  border-radius: 10px;
+  padding: 10px 0 10px 10px;
+}
+</style>
