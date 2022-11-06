@@ -10,6 +10,7 @@ const post: TimelinePost = {
   createdAt: DateTime.now(),
   author: "d5f4d5sf",
   categoryId: "sdssfdf",
+  markdown: "## Title",
 };
 </script>
 

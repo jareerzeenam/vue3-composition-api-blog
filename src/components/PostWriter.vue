@@ -7,11 +7,23 @@ const props = defineProps<{
 }>();
 
 const title = ref(props.post.title);
+const content = ref(props.post.markdown);
 const contentEditable = ref<HTMLDListElement>();
 
 onMounted(() => {
-  console.log(contentEditable.value?.innerText);
+  if (!contentEditable.value) {
+    throw Error("Content Editable DOM node was not found");
+  }
+
+  contentEditable.value.innerText = content.value;
 });
+
+function handleInput() {
+  if (!contentEditable.value) {
+    throw Error("Content Editable DOM node was not found");
+  }
+  content.value = contentEditable.value?.innerText;
+}
 </script>
 
 <template>
@@ -22,7 +34,13 @@ onMounted(() => {
         <input type="text" class="input" v-model="title" />
         {{ title }}
       </div>
-      <div contenteditable ref="contentEditable">This is the Post</div>
     </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <div contenteditable ref="contentEditable" @input="handleInput" />
+    </div>
+    <div class="column">{{ content }}</div>
   </div>
 </template>

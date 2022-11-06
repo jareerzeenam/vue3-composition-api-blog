@@ -7,6 +7,7 @@ export interface Post {
   author: string;
   categoryId: string;
   createdAt: string;
+  markdown: string;
 }
 
 export interface TimelinePost extends Omit<Post, 'createdAt'> {
@@ -29,6 +30,7 @@ export const thisWeek: Post = {
   author: '54df56sd4f65sdf',
   categoryId: 'dsdfsdf85sd46f',
   createdAt: DateTime.now().minus({ days: 5 }).toISO(),
+  markdown: '',
 };
 
 export const thisMonth: Post = {
@@ -38,6 +40,7 @@ export const thisMonth: Post = {
   author: '54df56sd4f65sdf',
   categoryId: 'dsdfsdf85sd46f',
   createdAt: DateTime.now().minus({ weeks: 3 }).toISO(),
+  markdown: '',
 };
 
 export const thisYear: Post = {
@@ -47,4 +50,5 @@ export const thisYear: Post = {
   author: '54df56sd4f65sdf',
   categoryId: 'dsdfsdf85sd46f',
   createdAt: DateTime.now().minus({ months: 10 }).toISO(),
+  markdown: '',
 };
