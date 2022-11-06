@@ -62,3 +62,4 @@ npm run server
 ## Packages
 - [Luxon: Wrapper for JavaScript dates and times](https://moment.github.io/luxon/#/)
 - [Pinia: Vue Store for state management](https://pinia.vuejs.org/)
+- [Marked: A markdown parser and compiler](https://marked.js.org/)
