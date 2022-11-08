@@ -5,6 +5,7 @@ defineProps<{
   name: string;
   modelValue: string;
   status: Status;
+  type: string;
 }>();
 
 const emit = defineEmits<{
@@ -22,7 +23,7 @@ function handleInput(e: Event) {
     <label :for="name" class="label">{{ name }}</label>
     <div class="control">
       <input
-        type="text"
+        :type="type"
         :id="name"
         class="input"
         :value="modelValue"
