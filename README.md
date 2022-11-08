@@ -66,3 +66,6 @@ npm run server
 - [Highlight.js: Syntax highlighting for the Web](https://highlightjs.org/)
 - [Lodash: Used for debounced function](https://lodash.com/docs/4.17.15#debounce)
 - [Body Parser: Node.js body parsing middleware.](https://www.npmjs.com/package/body-parser)
+- [Json Web Token](https://www.npmjs.com/package/jsonwebtoken)
+- [Express Sessions](http://expressjs.com/en/resources/middleware/session.html)
+- [Cookie Parser](https://www.npmjs.com/package/cookie-parser)
