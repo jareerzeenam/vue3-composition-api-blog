@@ -42,8 +42,8 @@ export function validate(value: string, rules: Rule[]): Status {
   };
 }
 
-console.log(
-  validate('a', [length({ min: 5, max: 10 })]),
-  validate('aaaaaaaaaaaa', [length({ min: 5, max: 10 })]),
-  validate('username', [length({ min: 5, max: 10 })])
-);
+// console.log(
+//   validate('a', [length({ min: 5, max: 10 })]),
+//   validate('aaaaaaaaaaaa', [length({ min: 5, max: 10 })]),
+//   validate('username', [length({ min: 5, max: 10 })])
+// );
