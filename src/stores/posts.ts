@@ -38,7 +38,7 @@ export const usePosts = defineStore('posts', {
     // Data fetching
     async fetchPosts() {
       // fetching data
-      const res = await window.fetch('http://localhost:5500/posts');
+      const res = await window.fetch('/api/posts');
       const data = (await res.json()) as Post[];
       await delay();
 
@@ -62,7 +62,7 @@ export const usePosts = defineStore('posts', {
         createdAt: post.createdAt.toISO(),
       });
 
-      return window.fetch('http://localhost:5500/posts', {
+      return window.fetch('/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
