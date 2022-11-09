@@ -2,13 +2,20 @@
 import { DateTime } from "luxon";
 import PostWriter from "../components/PostWriter.vue";
 import { TimelinePost } from "../posts";
+import { useUsers } from "../stores/users";
+
+const usersStore = useUsers();
+
+if (!usersStore.currentUserId) {
+  throw Error(`User was not Found!`);
+}
 
 const post: TimelinePost = {
   id: "-1",
   title: "Title",
   description: "Description",
   createdAt: DateTime.now(),
-  author: "d5f4d5sf",
+  author: usersStore.currentUserId,
   categoryId: "sdssfdf",
   markdown: "## Title",
   html: "<h2>Title</h2>",
