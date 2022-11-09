@@ -36,7 +36,6 @@ function parseHtml(markdown: string) {
       },
     },
     (err, parseResult) => {
-      // console.log(parseResult);
       html.value = parseResult;
     }
   );

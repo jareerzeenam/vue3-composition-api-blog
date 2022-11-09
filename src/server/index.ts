@@ -54,14 +54,11 @@ function authentication(id: string, req: Request, res: Response) {
 }
 
 app.get('/current-user', (req, res) => {
-  console.log('REQ ::: ', req.cookies);
-
   try {
     // Validate JWT token
     const token = req.cookies[COOKIE]; //
     const result = jsonwebtoken.verify(token, SECRET) as { id: string };
 
-    console.log('RESULT ::: ', result);
     res.json({ id: result.id });
   } catch (error) {
     // ...
