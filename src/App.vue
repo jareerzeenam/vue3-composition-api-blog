@@ -1,19 +1,15 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-import Navbar from "./components/Navbar.vue";
-import { useModal } from "./composables/modal";
-import { useUsers } from "./stores/users";
+import { computed } from 'vue';
+import Navbar from './components/Navbar.vue';
+import { useModal } from './composables/modal';
 
 const modal = useModal();
-const usersStore = useUsers();
 
 const modalStyle = computed(() => {
   return {
-    display: modal.show.value ? "block" : "none",
+    display: modal.show.value ? 'block' : 'none',
   };
 });
-
-usersStore.authenticate();
 </script>
 
 <template>
@@ -36,8 +32,8 @@ usersStore.authenticate();
 </template>
 
 <style>
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
-@import "highlight.js/styles/atom-one-dark.css"; /* Highlight.js Styles */
+@import 'https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css';
+@import 'highlight.js/styles/atom-one-dark.css'; /* Highlight.js Styles */
 
 ul {
   list-style: revert !important;
