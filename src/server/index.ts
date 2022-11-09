@@ -73,6 +73,18 @@ app.post<{}, {}, NewUser>('/users', (req, res) => {
   res.json(rest);
 });
 
+// Login
+app.post<{}, {}, NewUser>('/login', (req, res) => {
+  const targetUser = allUsers.find((x) => x.username === req.body.username);
+
+  if (!targetUser || targetUser.password !== req.body.password) {
+    res.status(401).end();
+  } else {
+    authentication(targetUser.id, req, res);
+    res.status(200).end();
+  }
+});
+
 app.listen(5500, () => {
   console.log('Listening on port 5500');
 });
