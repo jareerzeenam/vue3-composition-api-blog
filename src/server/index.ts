@@ -56,6 +56,12 @@ app.get('/current-user', (req, res) => {
   }
 });
 
+// Log Out
+app.post('/logout', (req, res) => {
+  res.cookie(COOKIE, '', { httpOnly: true });
+  res.status(200).end();
+});
+
 app.post<{}, {}, NewUser>('/users', (req, res) => {
   const user: User = { ...req.body, id: (Math.random() * 100000).toFixed() };
   allUsers.push(user);
