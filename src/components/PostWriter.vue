@@ -1,20 +1,24 @@
 <script lang="ts" setup>
-import { ref, onMounted, watch, watchEffect } from "vue";
-import { Post, TimelinePost } from "../posts";
-import { useRouter } from "vue-router";
-import { marked } from "marked";
-import highlightjs from "highlight.js";
-import debounce from "lodash/debounce";
-import { usePosts } from "../stores/posts";
-import { useUsers } from "../stores/users";
+import { ref, onMounted, watch, watchEffect } from 'vue';
+import { Post, TimelinePost } from '../posts';
+import { useRouter } from 'vue-router';
+import { marked } from 'marked';
+import highlightjs from 'highlight.js';
+import debounce from 'lodash/debounce';
+import { usePosts } from '../stores/posts';
+import { useUsers } from '../stores/users';
 
 const props = defineProps<{
   post: TimelinePost | Post;
 }>();
 
+const emit = defineEmits<{
+  (event: 'submit', post: Post): void;
+}>();
+
 const title = ref(props.post.title);
 const content = ref(props.post.markdown);
-const html = ref("");
+const html = ref('');
 const contentEditable = ref<HTMLDListElement>();
 
 const posts = usePosts();
@@ -53,7 +57,7 @@ watch(
 // On load show the inserted value and watches for newly inserted values
 onMounted(() => {
   if (!contentEditable.value) {
-    throw Error("Content Editable DOM node was not found");
+    throw Error('Content Editable DOM node was not found');
   }
   // Assign content value with the inner text
   contentEditable.value.innerText = content.value;
@@ -61,7 +65,7 @@ onMounted(() => {
 
 function handleInput() {
   if (!contentEditable.value) {
-    throw Error("Content Editable DOM node was not found");
+    throw Error('Content Editable DOM node was not found');
   }
   // Assign content value with the inner text
   content.value = contentEditable.value?.innerText;
@@ -74,7 +78,7 @@ async function handleClick() {
   const newPost: Post = {
     ...props.post,
     createdAt:
-      typeof props.post.createdAt === "string"
+      typeof props.post.createdAt === 'string'
         ? props.post.createdAt
         : props.post.createdAt.toISO(),
     title: title.value,
@@ -82,8 +86,7 @@ async function handleClick() {
     markdown: content.value,
     html: html.value,
   };
-  await posts.createPost(newPost);
-  router.push("/"); // this is used to prevent page reload
+  emit('submit', newPost);
 }
 </script>
 
