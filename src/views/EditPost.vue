@@ -23,6 +23,5 @@ async function handleSubmit(post: Post) {
 
 <template>
   Edit Post
-  <PostWriter :post="post" />
   <PostWriter :post="post" @submit="handleSubmit" />
 </template>
