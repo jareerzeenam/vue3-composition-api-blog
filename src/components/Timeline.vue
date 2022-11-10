@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePosts } from "../stores/posts";
-import TimelineItem from "./TimelineItem.vue";
-import { periods } from "../constants";
+import { usePosts } from '../stores/posts';
+import TimelineItem from './TimelineItem.vue';
+import { periods } from '../constants';
 
 const postsStore = usePosts();
 
@@ -22,6 +22,10 @@ await postsStore.fetchPosts();
       </a>
     </span>
 
-    <TimelineItem v-for="post of postsStore.filteredPosts" :key="post.id" :post="post" />
+    <TimelineItem
+      v-for="post of postsStore.filteredPosts"
+      :key="post.id"
+      :post="post"
+    />
   </nav>
 </template>
