@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
-import FormInput from "./FormInput.vue";
-import { NewUser } from "../users";
-import { validate, length, required } from "../validation";
-import { useUsers } from "../stores/users";
-import { useModal } from "../composables/modal";
+import { computed, ref } from 'vue';
+import FormInput from './FormInput.vue';
+import { NewUser } from '../users';
+import { validate, length, required } from '../validation';
+import { useUsers } from '../stores/users';
+import { useModal } from '../composables/modal';
 
 defineProps<{
   error?: string;
 }>();
 
 const emit = defineEmits<{
-  (event: "submit", payload: NewUser): void;
+  (event: 'submit', payload: NewUser): void;
 }>();
 
-const username = ref("");
+const username = ref('');
 const usernameStatus = computed(() => {
   return validate(username.value, [required, length({ min: 5, max: 10 })]);
 });
 
-const password = ref("");
+const password = ref('');
 const passwordStatus = computed(() => {
   return validate(password.value, [required, length({ min: 10, max: 40 })]);
 });
@@ -42,7 +42,7 @@ async function handleSubmit() {
 
   try {
     // emit the even here
-    emit("submit", newUser);
+    emit('submit', newUser);
   } catch (error) {}
 }
 </script>
@@ -52,12 +52,14 @@ async function handleSubmit() {
     <div class="container">
       <form class="form" @submit.prevent="handleSubmit">
         <FormInput
+          data-testid="username"
           name="Username"
           v-model="username"
           :status="usernameStatus"
           type="text"
         />
         <FormInput
+          data-testid="password"
           name="Password"
           v-model="password"
           :status="passwordStatus"

@@ -1,23 +1,36 @@
 import { useUsers } from './../stores/users';
 import { mount } from '@vue/test-utils';
-import { createPinia, setActivePinia } from 'pinia';
-import { describe, it, expect } from 'vitest';
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createPinia, Pinia, setActivePinia } from 'pinia';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { createMemoryHistory, createRouter, Router } from 'vue-router';
 import { routes } from '../router';
 import Navbar from './Navbar.vue';
 
+vi.stubGlobal(
+  'fetch',
+  vi.fn(() => {
+    // ...
+  })
+);
+
 describe('Navbar', () => {
-  it('renders sign-in and sign-up buttons when not authenticated', async () => {
+  let pinia: Pinia;
+  let router: Router;
+
+  beforeEach(() => {
     const el = document.createElement('div');
     el.id = 'modal';
     document.body.appendChild(el);
 
-    const pinia = createPinia();
-    const router = createRouter({
+    pinia = createPinia();
+    setActivePinia(pinia);
+    router = createRouter({
       history: createMemoryHistory(),
       routes,
     });
+  });
 
+  it('renders sign-in and sign-up buttons when not authenticated', async () => {
     const wrapper = mount(Navbar, {
       global: {
         plugins: [pinia, router],
@@ -29,21 +42,9 @@ describe('Navbar', () => {
     // console.log(wrapper.html());
   });
 
-  it.only('renders new post and logout buttons when authenticated', async () => {
-    const el = document.createElement('div');
-    el.id = 'modal';
-    document.body.appendChild(el);
-
-    const pinia = createPinia();
-    setActivePinia(pinia);
-
+  it('renders new post and logout buttons when authenticated', async () => {
     const users = useUsers();
     users.currentUserId = '1';
-
-    const router = createRouter({
-      history: createMemoryHistory(),
-      routes,
-    });
 
     const wrapper = mount(Navbar, {
       global: {
@@ -51,11 +52,17 @@ describe('Navbar', () => {
       },
     });
 
-    // expect(wrapper.find('#sign-up').exists()).toBe(true);
-    // expect(wrapper.find('[data-testid="sign-in"]').exists()).toBe(true);
-
     expect(wrapper.find('a').text()).toBe('New Post');
     expect(wrapper.find('button').text()).toBe('Log Out');
-    console.log(wrapper.html());
+
+    await wrapper.find('#logout').trigger('click');
+
+    expect(wrapper.find('#sign-up').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="sign-in"]').exists()).toBe(true);
+
+    await wrapper.find('[data-testid="sign-in"]').trigger('click');
+
+    expect(document.body.querySelector('#signin-form')).toBeTruthy();
+    // console.log(document.body.outerHTML);
   });
 });
