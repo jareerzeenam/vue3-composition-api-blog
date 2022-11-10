@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { useModal } from "../composables/modal";
-import { useUsers } from "../stores/users";
+import { useRouter } from 'vue-router';
+import { useModal } from '../composables/modal';
+import { useUsers } from '../stores/users';
 
 const modal = useModal();
 const usersStore = useUsers();
@@ -9,7 +9,7 @@ const router = useRouter();
 
 async function logout() {
   await usersStore.logout();
-  router.push({ path: "/" });
+  router.push({ path: '/' });
 }
 </script>
 
@@ -22,8 +22,16 @@ async function logout() {
       </div>
 
       <div v-else class="buttons">
-        <button class="button" @click="modal.showModal('signUp')">Sign Up</button>
-        <button class="button" @click="modal.showModal('signIn')">Sign In</button>
+        <button id="sign-up" class="button" @click="modal.showModal('signUp')">
+          Sign Up
+        </button>
+        <button
+          data-testid="sign-in"
+          class="button"
+          @click="modal.showModal('signIn')"
+        >
+          Sign In
+        </button>
       </div>
     </div>
   </div>
