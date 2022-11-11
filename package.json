@@ -17,6 +17,7 @@
     "@types/lodash": "4.14",
     "@types/luxon": "^2.3.1",
     "@types/marked": "^4.0.3",
+    "@vitejs/plugin-vue-jsx": "^2.1.1",
     "@vue/test-utils": "^2.2.0",
     "body-parser": "1.19",
     "cookie-parser": "^1.4.6",
